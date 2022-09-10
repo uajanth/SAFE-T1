@@ -1,21 +1,29 @@
-export const drawRect = (detections, ctx) =>{
-  // Loop through each prediction
-  detections.forEach(prediction => {
+export const drawRect = (detections, ctx) => {
+	// Loop through each prediction
+	detections.forEach((prediction) => {
+		console.log(212121, prediction);
+		let color = "";
 
-    // Extract boxes and classes
-    const [x, y, width, height] = prediction['bbox']; 
-    const text = prediction['class']; 
+		if (prediction.class === "person") {
+			color = "008000";
+		}
 
-    // Set styling
-    const color = Math.floor(Math.random()*16777215).toString(16);
-    ctx.strokeStyle = '#' + color
-    ctx.font = '18px Arial';
+		if (prediction.class === "cell phone") {
+			color = "FF0000";
+		}
+		// Extract boxes and classes
+		const [x, y, width, height] = prediction["bbox"];
+		const text = prediction["class"];
 
-    // Draw rectangles and text
-    ctx.beginPath();   
-    ctx.fillStyle = '#' + color
-    ctx.fillText(text, x, y);
-    ctx.rect(x, y, width, height); 
-    ctx.stroke();
-  });
-}
+		// Set styling
+		ctx.strokeStyle = "#" + color;
+		ctx.font = "18px Arial";
+
+		// Draw rectangles and text
+		ctx.beginPath();
+		ctx.fillStyle = "#" + color;
+		ctx.fillText(text, x, y);
+		ctx.rect(x, y, width, height);
+		ctx.stroke();
+	});
+};
